@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: demo_user
+      POSTGRES_PASSWORD: demo_user
+      POSTGRES_DB: demodb
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U demo_user -d demodb"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED: true
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demodb
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/readiness"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s

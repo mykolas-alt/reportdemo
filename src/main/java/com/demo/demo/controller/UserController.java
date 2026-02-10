@@ -11,8 +11,10 @@ import com.demo.demo.dto.User;
 import com.demo.demo.repository.UserRepository;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
@@ -38,6 +40,7 @@ public class UserController {
             User user = userRepository.findUserByEmail(email);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
+            log.error("Error fetching user by email: {}", email, e);
             return ResponseEntity.notFound().build();
         }
     }
