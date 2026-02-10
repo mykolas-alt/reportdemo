@@ -26,7 +26,6 @@ export const options = {
 export function setup() {
     console.log(`Seeding ${SEED_COUNT} users...`);
 
-
     let batchedCount = SEED_COUNT / BATCH_SIZE;
     let requestCount = SEED_COUNT;
     for (let batch = 0; batch < batchedCount; batch++) {
@@ -39,6 +38,8 @@ export function setup() {
                 body: JSON.stringify({
                     email: `user${requestNumber}@test.com`,
                     name: `User ${requestNumber}`,
+                    companyName: `company ${requestNumber}`,
+                    companyCode: `COMP${requestNumber}`,
                 }),
                 params: { headers: { 'Content-Type': 'application/json' } },
             });

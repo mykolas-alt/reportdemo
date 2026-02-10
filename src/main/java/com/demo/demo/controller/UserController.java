@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> test(@RequestBody User user) {
         try {
-            userRepository.createUser(user.email(), user.name());
+            userRepository.createUser(user.email(), user.name(), user.companyName(), user.companyCode());
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Registration failed: " + e.getMessage());
         }
