@@ -13,6 +13,10 @@
             <column name="company_code" type="VARCHAR(255)" />
         </createTable>
 
+        <createIndex indexName="idx_company_code" tableName="company">
+            <column name="company_code" />
+        </createIndex>
+
         <addColumn tableName="demouser">
             <column name="company_code" type="VARCHAR(255)"> </column>
         </addColumn>
