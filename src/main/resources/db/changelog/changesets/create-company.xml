@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.21.xsd">
+
+    <changeSet id="create-company" author="mykolas">
+        <createTable tableName="company">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="company_name" type="VARCHAR(255)" />
+            <column name="company_code" type="VARCHAR(255)" />
+        </createTable>
+
+        <createIndex indexName="idx_company_code" tableName="company">
+            <column name="company_code" />
+        </createIndex>
+
+        <addColumn tableName="demouser">
+            <column name="company_code" type="VARCHAR(255)"> </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
